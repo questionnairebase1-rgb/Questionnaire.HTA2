@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Évaluation des connaissances en HTA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1e3c72;
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .required {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #2a5298;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            margin-top: 10px;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .radio-option:hover,
+        .checkbox-option:hover {
+            background: #f8f9fa;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            background: #1e3c72;
+            color: white;
+            padding: 12px 15px;
+            margin: 30px 0 20px 0;
+            font-size: 17px;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 60, 114, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message,
+        .error-message {
+            display: none;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Évaluation des connaissances en HTA chez les patients hypertendus dans le milieu militaire</h1>
+            <p>• Indique une question obligatoire</p>
+        </div>
+
+        <form id="htaForm">
+            <!-- Section 1: Informations Personnelles -->
+            <div class="section-title">👤 Informations Personnelles</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q3</span>Âge <span class="required">*</span></label>
+                <input type="number" name="q3_age" min="18" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q4</span>Niveau d'étude <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q4_niveau_etude" value="Primaire" required>
+                        <span>Primaire</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q4_niveau_etude" value="Secondaire">
+                        <span>Secondaire</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q4_niveau_etude" value="Supérieur">
+                        <span>Supérieur</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q5</span>Couverture sociale <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q5_couverture_sociale" value="Payant" required>
+                        <span>Payant</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q5_couverture_sociale" value="Indigent">
+                        <span>Indigent</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q5_couverture_sociale" value="CNAM">
+                        <span>CNAM</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q5_couverture_sociale" value="Assurance privée">
+                        <span>Assurance privée</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q5_couverture_sociale" value="Gratuit">
+                        <span>Gratuit</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label><span class="question-number">Q7</span>Grade <span class="required">*</span></label>
+                <input type="text" name="q7_grade" required placeholder="Ex: Caporal, Sergent, Lieutenant...">
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q8</span>Nombre d'années dans le service militaire <span class="required">*</span></label>
+                <input type="number" name="q8_annees_service" min="0" max="50" required>
+            </div>
+
+            <!-- Section 2: Habitudes de vie -->
+            <div class="section-title">🚬 Habitudes de vie</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q9</span>Habitudes <span class="required">*</span></label>
+                <p class="info-text">Plusieurs réponses possibles</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q9_habitudes[]" value="Tabac">
+                        <span>Tabac</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q9_habitudes[]" value="Alcool">
+                        <span>Alcool</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q9_habitudes[]" value="Consommation de café">
+                        <span>Consommation de café</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q9_habitudes[]" value="Aucune">
+                        <span>Aucune</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q10</span>Si tabagique, nombre de PA (Paquets-Années)</label>
+                <input type="number" name="q10_nombre_pa" min="0" placeholder="Laisser vide si non applicable">
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q11</span>Activité physique <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q11_activite_physique" value="Aucune" required>
+                        <span>Aucune</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q11_activite_physique" value="Légère">
+                        <span>Légère</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q11_activite_physique" value="Modérée">
+                        <span>Modérée</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q11_activite_physique" value="Intensive">
+                        <span>Intensive</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Antécédents -->
+            <div class="section-title">📋 Antécédents</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q12</span>ATCDs familiaux <span class="required">*</span></label>
+                <p class="info-text">Plusieurs réponses possibles</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="HTA">
+                        <span>HTA</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Diabète">
+                        <span>Diabète</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Dyslipidémie">
+                        <span>Dyslipidémie</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Coronaropathie">
+                        <span>Coronaropathie</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Dysthyroïdie">
+                        <span>Dysthyroïdie</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Aucun">
+                        <span>Aucun</span>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" name="q12_atcds_familiaux[]" value="Autre">
+                        <span>Autre</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q13</span>ATCDs personnels <span class="required">*</span></label>
+                <input type="text" name="q13_atcds_personnels" required placeholder="Décrire vos antécédents personnels">
+            </div>
+
+            <!-- Section 4: Données Cliniques -->
+            <div class="section-title">🩺 Données Cliniques</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q14</span>Traitement antihypertenseur (Classe, Molécule, Posologie) <span class="required">*</span></label>
+                <input type="text" name="q14_traitement" required placeholder="Ex: IEC, Ramipril 5mg/jour">
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q15</span>Pression artérielle systolique (mmHg) <span class="required">*</span></label>
+                <input type="number" name="q15_pa_systolique" min="60" max="250" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q16</span>Pression artérielle diastolique (mmHg) <span class="required">*</span></label>
+                <input type="number" name="q16_pa_diastolique" min="40" max="150" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q17</span>Classification <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Normale" required>
+                        <span>Normale</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Normale haute">
+                        <span>Normale haute</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Grade 1">
+                        <span>Grade 1</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Grade 2">
+                        <span>Grade 2</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Grade 3">
+                        <span>Grade 3</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q17_classification" value="Systolique isolée">
+                        <span>Systolique isolée</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q18</span>Hypotension orthostatique <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q18_hypotension" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q18_hypotension" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q19</span>Poids (kg) <span class="required">*</span></label>
+                <input type="number" name="q19_poids" min="30" max="250" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q20</span>Taille (cm) <span class="required">*</span></label>
+                <input type="number" name="q20_taille" min="100" max="230" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q21</span>IMC (kg/m²) <span class="required">*</span></label>
+                <input type="number" name="q21_imc" min="10" max="60" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q22</span>Évaluation du risque cardio-vasculaire (Globorisk) <span class="required">*</span></label>
+                <input type="text" name="q22_risque_cv" required placeholder="Ex: Faible, Modéré, Élevé, Très élevé">
+            </div>
+
+            <!-- Section 5: Connaissances sur l'HTA -->
+            <div class="section-title">📚 Connaissances sur l'HTA</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q23</span>L'HTA est caractérisée par une élévation de la pression artérielle systolique et/ou diastolique <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q23_definition_hta" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q23_definition_hta" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q23_definition_hta" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q24</span>L'augmentation isolée de la pression artérielle diastolique suffit à établir un diagnostic d'hypertension <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q24_diagnostic_diastolique" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q24_diagnostic_diastolique" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q24_diagnostic_diastolique" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q25</span>L'HTA est un phénomène physiologique lié à l'âge et ne nécessite donc pas de traitement <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q25_age_physiologique" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q25_age_physiologique" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q25_age_physiologique" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q26</span>Les médicaments suffisent à contrôler l'hypertension, les changements de mode de vie sont inutiles <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q26_medicaments_seuls" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q26_medicaments_seuls" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q26_medicaments_seuls" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q27</span>Si une personne hypertendue adopte une bonne hygiène de vie, il n'y a pas de raison à la mettre sous traitement antihypertenseur <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q27_hygiene_vie_seule" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q27_hygiene_vie_seule" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q27_hygiene_vie_seule" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q28</span>Une personne hypertendue doit prendre son traitement quand elle en ressent le besoin uniquement <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q28_traitement_besoin" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q28_traitement_besoin" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q28_traitement_besoin" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q29</span>Le traitement antihypertenseur doit être pris quotidiennement <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q29_quotidien" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q29_quotidien" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q29_quotidien" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q30</span>Une personne hypertendue est libre de choisir comment elle prend son traitement <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q30_libre_choix" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q30_libre_choix" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q30_libre_choix" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q31</span>Le traitement antihypertenseur est un traitement à vie <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q31_traitement_vie" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q31_traitement_vie" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q31_traitement_vie" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Connaissances Diététiques -->
+            <div class="section-title">🍽️ Connaissances Diététiques</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q32</span>Il est recommandé aux personnes hypertendues de privilégier la friture comme mode de cuisson <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q32_friture" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q32_friture" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q32_friture" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q33</span>Il est recommandé aux personnes hypertendues de privilégier les cuissons à l'eau, à la vapeur ou la grillade <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q33_cuisson_saine" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q33_cuisson_saine" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q33_cuisson_saine" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q34</span>Si le traitement antihypertenseur est efficace, la personne hypertendue n'est pas tenue à surveiller attentivement son apport quotidien en sel <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q34_sel_surveillance" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q34_sel_surveillance" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q34_sel_surveillance" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q35</span>Les fruits et légumes sont essentiels à l'alimentation d'une personne hypertendue <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q35_fruits_legumes" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q35_fruits_legumes" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q35_fruits_legumes" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q36</span>La viande rouge peut s'inscrire dans un régime alimentaire équilibré pour les personnes hypertendues <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q36_viande_rouge" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q36_viande_rouge" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q36_viande_rouge" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q37</span>La viande blanche peut s'inscrire dans un régime alimentaire équilibré pour les personnes hypertendues <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q37_viande_blanche" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q37_viande_blanche" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q37_viande_blanche" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q38</span>Une personne hypertendue ne doit pas fumer <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q38_tabac" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q38_tabac" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q38_tabac" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q39</span>Une personne hypertendue ne doit pas modérer sa consommation d'alcool <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q39_alcool" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q39_alcool" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q39_alcool" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Complications de l'HTA -->
+            <div class="section-title">⚠️ Complications de l'HTA</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q40</span>Une HTA non traitée peut causer un AVC <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q40_avc" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q40_avc" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q40_avc" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q41</span>Une HTA non traitée peut causer un syndrome coronarien aigu <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q41_coronarien" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q41_coronarien" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q41_coronarien" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q42</span>Une HTA non traitée peut mener vers une mort précoce <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q42_mort_precoce" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q42_mort_precoce" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q42_mort_precoce" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q43</span>Une HTA non traitée peut causer une insuffisance rénale <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q43_insuffisance_renale" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q43_insuffisance_renale" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q43_insuffisance_renale" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q44</span>Une HTA non traitée peut causer des atteintes oculaires <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q44_atteintes_oculaires" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q44_atteintes_oculaires" value="Non">
+                        <span>Non</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q44_atteintes_oculaires" value="Je ne sais pas">
+                        <span>Je ne sais pas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Observance Thérapeutique -->
+            <div class="section-title">💊 Observance Thérapeutique</div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q45</span>Avez-vous pris votre traitement antihypertenseur ce matin ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q45_pris_ce_matin" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q45_pris_ce_matin" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q46</span>Vous est-il arrivé d'être à court de traitement antihypertenseur depuis votre dernière consultation ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q46_court_traitement" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q46_court_traitement" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q47</span>Vous est-il déjà arrivé de prendre votre traitement antihypertenseur plus tard que d'habitude ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q47_retard_prise" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q47_retard_prise" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q48</span>Vous est-il déjà arrivé d'oublier de prendre votre traitement antihypertenseur ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q48_oubli" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q48_oubli" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q49</span>Vous êtes-vous déjà senti(e) anxieux(se) à l'idée de prendre vos médicaments pour l'hypertension, en raison des risques potentiels ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q49_anxiete" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q49_anxiete" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q50</span>Avez-vous déjà envisagé d'arrêter votre traitement contre l'hypertension à cause des risques possibles ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q50_envisage_arret" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q50_envisage_arret" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><span class="question-number">Q51</span>Avez-vous l'impression de prendre trop de médicaments ? <span class="required">*</span></label>
+                <p class="info-text">Une seule réponse possible</p>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="q51_trop_medicaments" value="Oui" required>
+                        <span>Oui</span>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="q51_trop_medicaments" value="Non">
+                        <span>Non</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                📤 Soumettre le Questionnaire
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            ✅ <strong>Merci !</strong> Votre questionnaire a été soumis avec succès. Vos réponses contribueront à améliorer la prise en charge de l'HTA dans le milieu militaire.
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            ❌ <strong>Erreur !</strong> Une erreur est survenue lors de l'envoi. Veuillez vérifier votre connexion et réessayer.
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('htaForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // IMPORTANT: Remplacez cette URL par votre URL de Web App Google Apps Script
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPqnY9JVY5Aate-gYZtK-yKAUTsyAzfUOjO712-sXOk2LH33qmW1ecNTapjBbz45wV/exec';
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validation des checkboxes obligatoires
+            const q6 = document.querySelectorAll('input[name="q6_niveau_socio[]"]:checked');
+            const q9 = document.querySelectorAll('input[name="q9_habitudes[]"]:checked');
+            const q12 = document.querySelectorAll('input[name="q12_atcds_familiaux[]"]:checked');
+            
+            if (q6.length === 0) {
+                alert('Veuillez sélectionner au moins un niveau socio-économique (Question 6)');
+                return;
+            }
+            
+            if (q9.length === 0) {
+                alert('Veuillez sélectionner au moins une habitude (Question 9)');
+                return;
+            }
+            
+            if (q12.length === 0) {
+                alert('Veuillez sélectionner au moins un antécédent familial (Question 12)');
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Envoi en cours...';
+            
+            const formData = new FormData(form);
+            const data = {};
+            
+            // Gérer les checkboxes (réponses multiples)
+            for (let [key, value] of formData.entries()) {
+                if (key.includes('[]')) {
+                    const cleanKey = key.replace('[]', '');
+                    if (!data[cleanKey]) {
+                        data[cleanKey] = [];
+                    }
+                    data[cleanKey].push(value);
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Convertir les tableaux en chaînes avec séparateur
+            Object.keys(data).forEach(key => {
+                if (Array.isArray(data[key])) {
+                    data[key] = data[key].join('; ');
+                }
+            });
+            
+            // Ajouter la date et l'heure de soumission
+            data.date_soumission = new Date().toLocaleString('fr-FR');
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Avec mode: 'no-cors', on ne peut pas lire la réponse
+                // On suppose que ça a fonctionné
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                window.scrollTo(0, 0);
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                errorMessage.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📤 Soumettre le Questionnaire';
+            }
+        });
+    </script>
+</body>
+</html>
